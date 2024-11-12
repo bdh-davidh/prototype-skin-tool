@@ -1,58 +1,95 @@
-document.getElementById("fileInput").addEventListener("change", function (event) {
-  var files = event.target.files;
-  var preview = document.getElementById("preview");
-  var messageDiv = document.getElementById("message");
+const previewElement = document.querySelector("#preview");
+const errorMessageElement = document.querySelector("#message");
+const predictionsElement = document.querySelector("#predictions");
+const progressElement = document.querySelector("#progress");
+const maxFileSize = 1_048_576; // 1MB in bytes
 
-  messageDiv.innerHTML = ""; // Clear previous messages
+function renderFileSizeError(files) {
+  this.value = ""; // Clear the field
+  const oversizedImage = files.find((file) => file.size > maxFileSize);
 
-  for (var i = 0; i < files.length; i++) {
-    var file = files[i];
+  errorMessageElement.innerHTML = `
+        <p>${oversizedImage.name} file is too big! The maximum file size is 1MB.</p>`;
+}
 
-    // Check if file size exceeds 1MB
-    if (file.size > 1048576) {
-      // 1MB in bytes
-      messageDiv.innerHTML += `<p>${file.name} is too big! Maximum file size is 1MB.</p>`;
-      this.value = ""; // Clear the field
-      // Optionally, you can break the loop if you don't want to process any files if one fails
-      // break;
-    }
-  }
-
-  if (messageDiv.innerHTML === "") {
-    messageDiv.innerHTML = "<p>All files are within the size limit.</p>";
-  }
-
-  // Clear any existing content
-  preview.innerHTML = "";
-
-  // Loop through all selected files
-  for (var i = 0; i < files.length; i++) {
-    var file = files[i];
-
+function renderUserImagePreviews(files) {
+  for (const file of files) {
     // Only process image files
     if (!file.type.match("image.*")) {
       continue;
     }
 
-    var imgContainer = document.createElement("div");
-    imgContainer.style.marginBottom = "20px"; // Spacing between each image container
-
-    var img = document.createElement("img");
+    // Create elements for image
+    const imgContainer = document.createElement("div");
+    const img = document.createElement("img");
     img.src = URL.createObjectURL(file);
-    img.style.height = "100px";
-    img.style.display = "block"; // Ensure the image is displayed in a block to put it on a new line
-    img.style.marginBottom = "10px";
+    img.alt = "User uploaded image";
 
-    var fileInfo = document.createElement("p");
-    fileInfo.textContent = `File Name: ${file.name}, Type: ${file.type}, Size: ${file.size} bytes`;
-    fileInfo.style.fontSize = "14px";
-    fileInfo.style.marginTop = "0";
+    // Create elements for supplementary details
+    const fileInfo = document.createElement("p");
+    fileInfo.textContent = `File Name: ${file.name}`;
 
     // Append the image and file info to the container
-    imgContainer.appendChild(img);
-    imgContainer.appendChild(fileInfo);
+    imgContainer.append(img);
+    imgContainer.append(fileInfo);
 
     // Append the container to the preview div
-    preview.appendChild(imgContainer);
+    previewElement.append(imgContainer);
+  }
+}
+
+function renderPredictions(predictions) {
+  predictionsElement.innerHTML = predictions
+    .map((prediction) => {
+      return `
+      <li>
+        <h3>${prediction.name}</h3>
+        <div class="possibility">Likelyhood: ${prediction.possibility}</div>
+        <a href="${prediction.readMoreUrl}">Find out more about ${prediction.name}.</a>
+      </li>`;
+    })
+    .join("");
+}
+
+function fetchPredictionData() {
+  progressElement.innerHTML = `Submitting and analysing your image. This should only take a moment.`;
+  const formData = new FormData();
+  formData.append("file", document.querySelector("#fileInput").files[0]);
+  formData.append("language", "en");
+  formData.append("simple_names", "True");
+  formData.append("model", "autoderm_v2_1");
+
+  fetch("https://autoderm.ai/v1/query", {
+    method: "POST",
+    headers: {
+      "Api-Key": "8954b689-338a-bca8-4c97-64ca160bf22b",
+    },
+    body: formData,
+  })
+    .then((response) => {
+      if (!response.ok) {
+        progressElement.innerHTML = `Apologies something went wrong, please try again.`;
+        throw new Error(`status_error: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      progressElement.innerHTML = `Your results are listed below.`;
+      const predictions = data.predictions;
+      renderPredictions(predictions);
+    })
+    .catch((error) => console.error("Error:", error));
+}
+
+document.querySelector("#fileInput").addEventListener("change", function (event) {
+  errorMessageElement.innerHTML = ""; // Clear previous messages
+  previewElement.innerHTML = ""; // Clear any existing images
+  const files = [...event.target.files];
+  const allFilesWithinMaxSize = files.every((file) => file.size < maxFileSize);
+  if (allFilesWithinMaxSize) {
+    fetchPredictionData();
+    renderUserImagePreviews(files);
+  } else {
+    renderFileSizeError(files);
   }
 });

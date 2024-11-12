@@ -1,35 +1,37 @@
 /* Abstracts
 ----------------------- */
 
-/* Font sizes */
---step-0: clamp(1rem, 0.931rem + 0.3448vi, 1.125rem);
---step-1: clamp(1.2rem, 1.0862rem + 0.569vi, 1.4063rem);
---step-2: clamp(1.44rem, 1.2647rem + 0.8767vi, 1.7578rem);
---step-3: clamp(1.728rem, 1.4691rem + 1.2945vi, 2.1973rem);
---step-4: clamp(2.0736rem, 1.7023rem + 1.8565vi, 2.7466rem);
---step-5: clamp(2.4883rem, 1.7565rem + 3.659vi, 3.8147rem);
+:root {
+  /* Font sizes */
+    --step-0: clamp(1rem, 0.931rem + 0.3448vi, 1.125rem);
+    --step-1: clamp(1.2rem, 1.0862rem + 0.569vi, 1.4063rem);
+    --step-2: clamp(1.44rem, 1.2647rem + 0.8767vi, 1.7578rem);
+    --step-3: clamp(1.728rem, 1.4691rem + 1.2945vi, 2.1973rem);
+    --step-4: clamp(2.0736rem, 1.7023rem + 1.8565vi, 2.7466rem);
+    --step-5: clamp(2.4883rem, 1.7565rem + 3.659vi, 3.8147rem);
 
-/* Spacing */
---space-3xs: clamp(0.25rem, 0.2155rem + 0.1724vi, 0.3125rem);
---space-2xs: clamp(0.5rem, 0.4655rem + 0.1724vi, 0.5625rem);
---space-xs: clamp(0.75rem, 0.681rem + 0.3448vi, 0.875rem);
---space-s: clamp(1rem, 0.931rem + 0.3448vi, 1.125rem);
---space-m: clamp(1.5rem, 1.3966rem + 0.5172vi, 1.6875rem);
---space-l: clamp(2rem, 1.8621rem + 0.6897vi, 2.25rem);
---space-xl: clamp(3rem, 2.7931rem + 1.0345vi, 3.375rem);
---space-2xl: clamp(4rem, 3.7241rem + 1.3793vi, 4.5rem);
---space-3xl: clamp(6rem, 5.5862rem + 2.069vi, 6.75rem);
+    /* Spacing */
+    --space-3xs: clamp(0.25rem, 0.2155rem + 0.1724vi, 0.3125rem);
+    --space-2xs: clamp(0.5rem, 0.4655rem + 0.1724vi, 0.5625rem);
+    --space-xs: clamp(0.75rem, 0.681rem + 0.3448vi, 0.875rem);
+    --space-s: clamp(1rem, 0.931rem + 0.3448vi, 1.125rem);
+    --space-m: clamp(1.5rem, 1.3966rem + 0.5172vi, 1.6875rem);
+    --space-l: clamp(2rem, 1.8621rem + 0.6897vi, 2.25rem);
+    --space-xl: clamp(3rem, 2.7931rem + 1.0345vi, 3.375rem);
+    --space-2xl: clamp(4rem, 3.7241rem + 1.3793vi, 4.5rem);
+    --space-3xl: clamp(6rem, 5.5862rem + 2.069vi, 6.75rem);
 
-/* Colors */
---clr-boots-blue: #05054b;
---clr-boots-accent-blue: #0067b2;
---clr-boots-light-grey: #f2f2f2;
---clr-boots-neutral-backdrop: #fef6f4;
---clr-boots-healthcare-blue: #0092cc;
---clr-boots-advantage-pink: #e41b68;
---clr-boots-key-line: #d0d0d0;
---clr-boots-text-grey: #616161;
---clr-boots-red: #c03;
+    /* Colors */
+    --clr-boots-blue: #05054b;
+    --clr-boots-accent-blue: #0067b2;
+    --clr-boots-light-grey: #f2f2f2;
+    --clr-boots-neutral-backdrop: #fef6f4;
+    --clr-boots-healthcare-blue: #0092cc;
+    --clr-boots-advantage-pink: #e41b68;
+    --clr-boots-key-line: #d0d0d0;
+    --clr-boots-text-grey: #616161;
+    --clr-boots-red: #c03;
+}
 
 /* Reset
 ----------------------- */
@@ -166,14 +168,18 @@ h6 {
   clip: rect(0 0 0 0);
 }
 
-.visually-hidden:hover,
-.visually-hidden:active,
-.visually-hidden:focus {
-  position: static;
-  inline-size: auto;
-  block-size: auto;
-  margin: 0;
-  overflow: visible;
-  white-space: normal;
-  clip: auto;
+
+/* Blocks
+----------------------- */
+
+.image-preview {
+  max-inline-size: min(400px, 100%);
+}
+
+label {
+  display: block;
+  max-inline-size: fit-content;
+  color: var(--clr-boots-light-grey);
+  background-color: var(--clr-boots-blue);
+  cursor: pointer;
 }
