@@ -13,27 +13,30 @@
       async
       src="./main.js"></script>
   </head>
-  <body class="contain-content stack">
+  <body class="contain-content">
     <header>LOGO</header>
-    <main class="stack">
+    <main class="stack-large">
       <h1>Autoderm Prototype</h1>
-      <h2>Upload Photo</h2>
-      <p>Upload an image that shows the symptoms of your skin condition as clearly as possible.</p>
-      <label for="fileInput">Upload Photo</label>
-      <input
-        type="file"
-        id="fileInput"
-        accept="image/*"
-        class="visually-hidden"
-        multiple />
-      <div class="image-preview" id="preview"></div>
-      <div id="message"></div>
-      <h2>Results</h2>
-      <p id="progress">The predictions based on your image will appear here after you've submitted a photo and analysis is complete. </p>
-      <ul id="predictions" class="stack">
-
-      </ul>
+      <section class="stack-small">
+        <h2>Upload Photo</h2>
+        <p>Upload an image that shows the symptoms of your skin condition as clearly as possible.</p>
+        <input
+          type="file"
+          id="fileInput"
+          accept="image/*"
+          class="visually-hidden"
+          multiple />
+        <label class="upload-photo" for="fileInput">Upload Photo</label>
+        <div class="image-preview" id="preview"></div>
+        <div id="message"></div>
+      </section>
+      <section class="stack-small">
+        <h2>Results</h2>
+        <p id="progress">The predictions based on your image will appear here after you've submitted a photo and analysis is complete. </p>
+        <ul id="predictions" class="stack">
+        </ul>
+      </section>
     </main>
-    <footer>Footer content</footer>
+    <footer>FOOTER</footer>
   </body>
 </html>
