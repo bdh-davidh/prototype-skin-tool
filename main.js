@@ -1,15 +1,17 @@
+const apiKey = "8954b689-338a-bca8-4c97-64ca160bf22b";
 const previewElement = document.querySelector("#preview");
 const errorMessageElement = document.querySelector("#message");
 const predictionsElement = document.querySelector("#predictions");
 const progressElement = document.querySelector("#progress");
-const maxFileSize = 1_048_576; // 1MB in bytes
+const maxFileSizeBytes = 5_242_880;
+const maxFileSizeMBs = 5;
 
 function renderFileSizeError(files) {
   this.value = ""; // Clear the field
-  const oversizedImage = files.find((file) => file.size > maxFileSize);
+  const oversizedImage = files.find((file) => file.size > maxFileSizeBytes);
 
   errorMessageElement.innerHTML = `
-        <p>${oversizedImage.name} file is too big! The maximum file size is 1MB.</p>`;
+        <p>${oversizedImage.name} file is too big! The maximum file size is ${maxFileSizeMBs}MB.</p>`;
 }
 
 function renderUserImagePreviews(files) {
@@ -62,7 +64,7 @@ function fetchPredictionData() {
   fetch("https://autoderm.ai/v1/query", {
     method: "POST",
     headers: {
-      "Api-Key": "8954b689-338a-bca8-4c97-64ca160bf22b",
+      "Api-Key": apiKey,
     },
     body: formData,
   })
@@ -85,7 +87,7 @@ document.querySelector("#fileInput").addEventListener("change", function (event)
   errorMessageElement.innerHTML = ""; // Clear previous messages
   previewElement.innerHTML = ""; // Clear any existing images
   const files = [...event.target.files];
-  const allFilesWithinMaxSize = files.every((file) => file.size < maxFileSize);
+  const allFilesWithinMaxSize = files.every((file) => file.size < maxFileSizeBytes);
   if (allFilesWithinMaxSize) {
     fetchPredictionData();
     renderUserImagePreviews(files);
