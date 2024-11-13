@@ -1,4 +1,4 @@
-const apiKey = "8954b689-338a-bca8-4c97-64ca160bf22b";
+const apiKey = " ADD API KEY HERE ";
 const previewElement = document.querySelector("#preview");
 const errorMessageElement = document.querySelector("#message");
 const predictionsElement = document.querySelector("#predictions");
