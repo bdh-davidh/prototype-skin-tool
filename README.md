@@ -6,7 +6,7 @@ Instructions:
 
 1. Clone the repo to your local machine
 2. Open in VS Code and update the API key variable in main.js
-3. Install the Live Preview or Server VS code extension
+3. If you need a local server, install the [Live Preview VS code extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.live-server)
 4. Open the index.html file and use the extension to start a local server
 
 You should now be able to test the prototype.
