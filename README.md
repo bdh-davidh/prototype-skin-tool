@@ -1,6 +1,6 @@
 # prototype-skin-tool
 
-A prototype to demonstrate the potential of an AI tool to support skin disease diagnosis
+A prototype to demonstrate the potential of an AI tool to support skin disease diagnosis using the tool from https://autoderm.ai/.
 
 Instructions:
 
@@ -11,7 +11,7 @@ Instructions:
 
 You should now be able to test the prototype.
 
-An API key can be obtained from: https://autoderm.ai/ There is a limit on the number of times it can be called for testing each day. The call returns a 400 error if the limit is exceeded.
+An API key can be obtained bt signing up at: https://autoderm.ai/signup.html There is a limit on the number of times it can be called for testing each day. The call returns a 400 error if the limit is exceeded.
 
 ## Returned Data Shape
 
