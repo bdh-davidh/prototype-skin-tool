@@ -14,8 +14,8 @@ You should now be able to test the prototype.
 An API key can be obtained bt signing up at: https://autoderm.ai/signup.html There is a limit on the number of times it can be called for testing each day. The call returns a 400 error if the limit is exceeded.
 
 ## Returned Data Shape
-
-`[
+```json
+[
   {
     "confidence": 0.2388297363900399,
     "possibility": "Possible",
@@ -48,4 +48,5 @@ An API key can be obtained bt signing up at: https://autoderm.ai/signup.html The
     "classificationId": "6703329d-9e2b-4a5d-bdce-168d8d8aaac0",
     "readMoreUrl": "[https://www.firstderm.com/skin-guide/](https://www.firstderm.com/skin-guide/)"
   }
-]`
+]
+```
