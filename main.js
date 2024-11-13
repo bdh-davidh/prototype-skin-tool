@@ -1,3 +1,6 @@
+/* VARIABLES
+______________ */
+
 const apiKey = " ADD API KEY HERE ";
 const previewElement = document.querySelector("#preview");
 const errorMessageElement = document.querySelector("#message");
@@ -6,6 +9,13 @@ const progressElement = document.querySelector("#progress");
 const maxFileSizeBytes = 5_242_880;
 const maxFileSizeMBs = 5;
 
+/* APP
+______________ */
+
+/**
+ *
+ * @param {Array} files - The array of uploaded images
+ */
 function renderFileSizeError(files) {
   this.value = ""; // Clear the field
   const oversizedImage = files.find((file) => file.size > maxFileSizeBytes);
@@ -14,6 +24,10 @@ function renderFileSizeError(files) {
         <p>${oversizedImage.name} file is too big! The maximum file size is ${maxFileSizeMBs}MB.</p>`;
 }
 
+/**
+ *
+ * @param {Array} files - The array of uploaded images
+ */
 function renderUserImagePreviews(files) {
   for (const file of files) {
     // Only process image files
@@ -40,6 +54,10 @@ function renderUserImagePreviews(files) {
   }
 }
 
+/**
+ *
+ * @param {Array} predictions - the arrray of data returned from the API call
+ */
 function renderPredictions(predictions) {
   predictionsElement.innerHTML = predictions
     .map((prediction) => {
@@ -53,6 +71,9 @@ function renderPredictions(predictions) {
     .join("");
 }
 
+/**
+ * Call the API
+ */
 function fetchPredictionData() {
   progressElement.innerHTML = `Submitting and analysing your image. This should only take a moment.`;
   const formData = new FormData();
@@ -83,6 +104,8 @@ function fetchPredictionData() {
     .catch((error) => console.error("Error:", error));
 }
 
+/* INTIS
+______________ */
 document.querySelector("#fileInput").addEventListener("change", function (event) {
   errorMessageElement.innerHTML = ""; // Clear previous messages
   previewElement.innerHTML = ""; // Clear any existing images
